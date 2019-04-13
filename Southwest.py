@@ -9,17 +9,8 @@ from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import WebDriverException
 import csv
 import pandas as pd
-
-"""
-departure_airport = input('Input 3 letter departure airport code: ').upper()
-departure_date = input('Input departure date (MM/DD): ')
-return_date = input('Input return date (MM/DD): ')
-
-"""
-departure_airport = 'HOU'
-departure_date = '2019-08-30'
-return_date = '2019-09-01'
-
+from search_params import departure_airport, departure_date, return_date
+from send_email import send
 
 i = 0
 depart_price_list = []
@@ -207,11 +198,14 @@ def sort_csv():
     sort_by_price.to_csv('SW_Flights_sorted.csv', index=False)
 
 
+# To send an email with the results, fill out "send_email.py" and uncomment send()
 def run_program():
     arrival_locations()
     perform_search()
     init_csv()
     sort_csv()
+    driver.close()
+    # send()
 
 
 run_program()
